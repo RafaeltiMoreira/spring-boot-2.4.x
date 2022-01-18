@@ -1,0 +1,5 @@
+package com.rafaelmoreira.spring.services;
+
+public class ClientService {
+
+}

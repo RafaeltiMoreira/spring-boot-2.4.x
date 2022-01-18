@@ -1,0 +1,5 @@
+package com.rafaelmoreira.spring.repositories;
+
+public class ClientRepository {
+
+}

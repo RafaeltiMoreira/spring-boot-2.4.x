@@ -1,0 +1,5 @@
+package com.rafaelmoreira.spring.entities;
+
+public class Client {
+
+}
