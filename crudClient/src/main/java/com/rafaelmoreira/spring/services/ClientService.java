@@ -1,6 +1,7 @@
 package com.rafaelmoreira.spring.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rafaelmoreira.spring.dto.ClientDTO;
 import com.rafaelmoreira.spring.entities.ClientCategory;
 import com.rafaelmoreira.spring.repositories.ClientRepository;
+import com.rafaelmoreira.spring.services.exceptions.EntityNotFoundException;
 
 @Service 
 public class ClientService {
@@ -29,6 +31,13 @@ public class ClientService {
 		}*/
 		
 		//return listDto;
+	}
+
+	@Transactional(readOnly = true)
+	public ClientDTO findById(Long id) {
+		Optional<ClientCategory> obj = repository.findById(id);
+		ClientCategory entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity não encontrada."));
+		return new ClientDTO(entity);
 	}
 
 }
