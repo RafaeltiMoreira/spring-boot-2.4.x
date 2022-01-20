@@ -3,7 +3,7 @@ package com.rafaelmoreira.spring.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.rafaelmoreira.spring.entities.Client;
+import com.rafaelmoreira.spring.entities.ClientCategory;
 
 public class ClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class ClientDTO implements Serializable {
 		this.children = children;
 	}
 	
-	public ClientDTO(Client entity) {
+	public ClientDTO(ClientCategory entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.cpf = entity.getCpf();

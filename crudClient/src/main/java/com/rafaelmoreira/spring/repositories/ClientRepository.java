@@ -1,9 +1,11 @@
 package com.rafaelmoreira.spring.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.rafaelmoreira.spring.entities.Client;
+import com.rafaelmoreira.spring.entities.ClientCategory;
 
-public interface ClientRepository extends JpaRepository<Client, Long> {
+@Repository
+public interface ClientRepository extends JpaRepository<ClientCategory, Long> {
 
 }
