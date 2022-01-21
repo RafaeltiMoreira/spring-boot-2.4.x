@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rafaelmoreira.spring.dto.ClientDTO;
 import com.rafaelmoreira.spring.entities.ClientCategory;
 import com.rafaelmoreira.spring.repositories.ClientRepository;
-import com.rafaelmoreira.spring.services.exceptions.EntityNotFoundException;
+import com.rafaelmoreira.spring.services.exceptions.ResourceNotFoundException;
 
 @Service 
 public class ClientService {
@@ -24,19 +26,12 @@ public class ClientService {
 		List<ClientCategory> list = repository.findAll();
 		
 		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
-		
-		/*List<ClientDTO> listDto = new ArrayList<>();
-		for (ClientCategory cat : list) {
-			listDto.add(new ClientDTO(cat));
-		}*/
-		
-		//return listDto;
 	}
 
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		Optional<ClientCategory> obj = repository.findById(id);
-		ClientCategory entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity não encontrada."));
+		ClientCategory entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity não encontrada."));
 		return new ClientDTO(entity);
 	}
 
@@ -50,6 +45,23 @@ public class ClientService {
 		entity.setChildren(dto.getChildren());
 		entity = repository.save(entity);
 		return new ClientDTO(entity);
+	}
+
+	@Transactional
+	public ClientDTO update(Long id, ClientDTO dto) {
+		try {
+		ClientCategory entity = repository.getOne(id);
+		entity.setName(dto.getName());
+		entity.setCpf(dto.getCpf());
+		entity.setIncome(dto.getIncome());
+		entity.setBirthDate(dto.getBirthDate());
+		entity.setChildren(dto.getChildren());
+		entity = repository.save(entity);
+		return new ClientDTO(entity);
+		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id não encontrado." + id);
+		}
 	}
 
 }
