@@ -1,5 +1,0 @@
-package com.rafaelmoreira.spring.resources.exceptions;
-
-public class StandardError {
-
-}
