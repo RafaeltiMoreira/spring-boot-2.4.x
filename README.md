@@ -54,7 +54,7 @@ aprendidas no capítulo:
 ```bash
 { 
     "name": "Moreira Rafael",
-    "cpf": "22225678922,
+    "cpf": "22225678922",
     "income": 7500.0,
     "birthDate": "2022-01-20T10:30:00Z",
     "children": 2 
